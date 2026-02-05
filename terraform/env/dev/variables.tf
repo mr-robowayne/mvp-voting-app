@@ -8,7 +8,12 @@ variable "vpc_name" { type = string }
 variable "vpc_cidr" { type = string }
 variable "private_sub" { type = string }
 variable "public_sub" { type = string }
-variable "az" {type = string}
+variable "az" { type = string }
 
-## 
-variable "key_name" {type = string}
+## ssh key 
+variable "key_name" { type = string }
+## instances 
+variable "instance_type" { type = string }
+variable "frontend_name" { type = string }
+variable "backend_name" { type = string }
+variable "db_name" { type = string }

@@ -1,4 +1,3 @@
-output "keypair_name" {
-  description = "Keypair Name"
-  value = var.key_name
+output "key_pair_name" {
+  value = module.key_pair.key_pair_name
 }

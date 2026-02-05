@@ -9,7 +9,7 @@ output "vpc_arn" {
 }
 output "vpc_name" {
   description = "vpc ressource name"
-  value       = var.vpc_name
+  value       = module.vpc.name
 }
 #Privat subnet outputs
 output "private_sub" {

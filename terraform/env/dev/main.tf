@@ -8,3 +8,8 @@ module "network_vpc" {
   az          = var.az
   region = var.aws_region
 }
+
+module "key_pair" {
+  source = "../../modules/keypair"
+  key_name = var.key_name
+}

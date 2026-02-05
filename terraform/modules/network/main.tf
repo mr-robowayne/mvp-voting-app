@@ -9,5 +9,4 @@ module "vpc" {
   azs             = [var.az]
   private_subnets = [var.private_sub]
   public_subnets  = [var.public_sub]
-
 }

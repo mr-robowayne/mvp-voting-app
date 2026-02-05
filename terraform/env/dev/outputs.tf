@@ -17,3 +17,7 @@ output "vpc_arn" {
   description = "VPC ARN in dev"
   value       = module.network_vpc.vpc_arn
 }
+output "ssh_key_name" {
+  description = "VPC ARN in dev"
+  value       = module.key_pair.key_pair_name
+}

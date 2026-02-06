@@ -17,8 +17,8 @@ module "key_pair" {
 module "app_instances" {
   source            = "../../modules/compute"
   instance_type     = var.instance_type
-  public_subnet_id  = var.public_sub
-  private_subnet_id = var.private_sub
+  public_subnet_id  = module.network_vpc.public_sub
+  private_subnet_id = module.network_vpc.private_sub
   key_name          = module.key_pair.key_pair_name
   frontend_name     = var.frontend_name
   backend_name      = var.backend_name

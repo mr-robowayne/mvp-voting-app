@@ -11,12 +11,10 @@ output "vpc_name" {
   description = "vpc ressource name"
   value       = module.vpc.name
 }
-#Privat subnet outputs
 output "private_sub" {
   description = "ID after creation"
   value       = module.vpc.private_subnets[0]
 }
-#Public subnet outputs
 output "public_sub" {
   description = "ID after creation"
   value       = module.vpc.public_subnets[0]

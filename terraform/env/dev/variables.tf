@@ -17,3 +17,5 @@ variable "instance_type" { type = string }
 variable "frontend_name" { type = string }
 variable "backend_name" { type = string }
 variable "db_name" { type = string }
+variable "bastion_name" { type = string }
+variable "own_ip_cidr" { type = string }

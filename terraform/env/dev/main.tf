@@ -1,6 +1,6 @@
 module "network_vpc" {
   source = "../../modules/network"
-  #Name main var.tf | Name mode var.tf
+
   vpc_name    = var.vpc_name
   vpc_cidr    = var.vpc_cidr
   private_sub = var.private_sub
@@ -14,14 +14,27 @@ module "key_pair" {
   key_name = var.key_name
 }
 
+module "security_groups" {
+  source       = "../../modules/security_groups"
+  vpc_id       = module.network_vpc.vpc_id
+  own_ip_cidr  = var.own_ip_cidr
+  bastion_name = var.bastion_name
+  frontend_name = var.frontend_name
+  backend_name = var.backend_name
+  db_name      = var.db_name
+}
+
 module "app_instances" {
   source            = "../../modules/compute"
   instance_type     = var.instance_type
-  public_subnet_id  = var.public_sub
-  private_subnet_id = var.private_sub
-  key_name          = module.key_pair.key_pair_name
+  public_subnet_id  = module.network_vpc.public_sub
+  private_subnet_id = module.network_vpc.private_sub
+  key_name          = var.key_name
   frontend_name     = var.frontend_name
   backend_name      = var.backend_name
   db_name           = var.db_name
+  bastion_name      = var.bastion_name
+  sg_map = module.security_groups.sg_map
+
   depends_on        = [module.network_vpc, module.key_pair]
 }

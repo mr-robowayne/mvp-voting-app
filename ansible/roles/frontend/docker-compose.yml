@@ -1,0 +1,10 @@
+services:
+  vote:
+    image: mrrobofliper/vote:latest
+    ports:
+      - "8080:80"
+
+  result:
+    image: mrrobofliper/result:latest
+    ports:
+      - "8081:80"

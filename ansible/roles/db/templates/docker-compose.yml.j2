@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:15-alpine
+
+    ports:
+      - "{{ postgres_port }}:5432"
+
+    environment:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - "./healthchecks:/healthchecks:ro"
+
+    healthcheck:
+      test: ["CMD", "sh", "/healthchecks/postgres.sh"]
+      interval: 5s
+
+volumes:
+  db-data:

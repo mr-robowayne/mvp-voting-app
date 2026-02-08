@@ -12,7 +12,3 @@ output "private_ips" {
   description = "Private EC2IPs"
   value       = { for k, v in module.ec2_instance : k => v.private_ip }
 }
-output "frontend_public_ip" {
-  description = "Frontend public IP"
-  value       = try(module.ec2_instance[var.frontend_name].public_ip, null)
-}

@@ -12,6 +12,7 @@ variable "az" { type = string }
 
 ## ssh key 
 variable "key_name" { type = string }
+variable "public_key" { type = string }
 ## instances 
 variable "instance_type" { type = string }
 variable "frontend_name" { type = string }

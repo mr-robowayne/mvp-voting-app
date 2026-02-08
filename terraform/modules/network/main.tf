@@ -12,4 +12,6 @@ module "vpc" {
   igw_tags = {
     Name = "${var.vpc_name}-igw"
   }
+  
+  
 }

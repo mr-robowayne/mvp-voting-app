@@ -17,5 +17,19 @@ output "ssh_key_name" {
   description = "SSH key pair name in dev"
   value       = var.key_name
 }
+output "frontend_public_ip" {
+  value = module.app_instances.public_ips["mvp-app-frontend"]
+}
 
+output "bastion_public_ip" {
+  value = module.app_instances.public_ips["mvp-bastion"]
+}
+
+output "backend_private_ip" {
+  value = module.app_instances.private_ips["mvp-app-backend"]
+}
+
+output "db_private_ip" {
+  value = module.app_instances.private_ips["mvp-db-backend"]
+}
 

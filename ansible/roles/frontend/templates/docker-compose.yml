@@ -1,0 +1,16 @@
+services:
+  vote:
+    image: mrrobofliper/mvp-vote:latest
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+
+  result:
+    image: mrrobofliper/mvp-result:latest
+    ports:
+      - "8081:80"
+    env_file:
+      - .env
+    extra_hosts:
+      - "db:10.0.1.180"

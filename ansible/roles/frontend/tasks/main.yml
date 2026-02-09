@@ -1,0 +1,60 @@
+- name: Install Docker
+  yum:
+    name:
+      - docker
+    state: present
+
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add ec2-user to docker group
+  become: true
+  user:
+    name: ec2-user
+    groups: docker
+    append: yes
+
+# We need to reset the SSH connection after adding the user to the docker group
+# because the new group membership won't be applied until the next login session in ansible
+
+- name: Reset SSH connection (apply new group)
+  meta: reset_connection
+
+- name: Create project folder
+  file:
+    path: "{{ frontend_project_dir }}"
+    state: directory
+
+- name: Copy docker-compose template
+  template:
+    src: docker-compose.yml
+    dest: "{{ frontend_project_dir }}/docker-compose.yml"
+
+
+# Amazon Linux does not have docker-compose in its repositories
+# so we need to install it manually by downloading the binary from GitHub
+- name: Install docker-compose binary
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: "0755"
+  become: true
+
+- name: Check docker-compose installation
+  command: /usr/local/bin/docker-compose --version
+
+- name: Write frontend .env file with DB credentials
+  template:
+    src: frontend.env.j2
+    dest: "{{ frontend_project_dir }}/.env"
+    owner: ec2-user
+    group: ec2-user
+    mode: "0600"
+
+- name: Start frontend containers
+  command: /usr/local/bin/docker-compose up -d
+  args:
+    chdir: "{{ frontend_project_dir }}"

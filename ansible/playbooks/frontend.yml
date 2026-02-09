@@ -1,0 +1,6 @@
+- hosts: frontend
+  become: true
+  vars_files:
+    - ../group_vars/frontend.yml
+  roles:
+    - frontend

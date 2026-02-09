@@ -37,13 +37,29 @@ resource "aws_security_group" "mvp_frontend_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-  description     = "SSH only from Bastion"
-  from_port       = 22
-  to_port         = 22
-  protocol        = "tcp"
-  security_groups = [aws_security_group.mvp_bastion_sg.id]
+    description     = "SSH only from Bastion"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.mvp_bastion_sg.id]
   }
-  
+  ingress {
+    description = "Vote app"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Result app"
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
   egress {
     description = "Allow all outbound"
     from_port   = 0
@@ -107,6 +123,14 @@ resource "aws_security_group" "mvp_db_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.mvp_backend_sg.id]
   }
+  ingress {
+    description     = "Postgres from Frontend"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.mvp_frontend_sg.id]
+  }
+
   egress {
     description = "Allow all outbound"
     from_port   = 0

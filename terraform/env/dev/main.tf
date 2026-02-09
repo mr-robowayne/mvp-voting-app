@@ -1,5 +1,6 @@
 module "network_vpc" {
   source = "../../modules/network"
+
   vpc_name    = var.vpc_name
   vpc_cidr    = var.vpc_cidr
   private_sub = var.private_sub
@@ -33,5 +34,8 @@ module "app_instances" {
   frontend_name     = var.frontend_name
   backend_name      = var.backend_name
   db_name           = var.db_name
-  depends_on        = [module.network_vpc, module.key_pair]
+  bastion_name      = var.bastion_name
+  sg_map            = module.security_groups.sg_map
+
+  depends_on = [module.network_vpc, module.key_pair]
 }

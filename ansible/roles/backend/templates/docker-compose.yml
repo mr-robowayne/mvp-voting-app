@@ -11,6 +11,10 @@ services:
 
   worker:
     image: mrrobofliper/mvp-worker:latest
+    env_file:
+      - .env
+    environment:
+      ConnectionStrings__Default: "Host=${DB_HOST};Port=${DB_PORT};Username=${DB_USER};Password=${DB_PASSWORD};Database=${DB_NAME}"
     depends_on:
       redis:
         condition: service_healthy

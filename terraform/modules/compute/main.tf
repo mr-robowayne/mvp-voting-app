@@ -16,7 +16,13 @@ module "ec2_instance" {
 
   # Module Input - assign a public IP address only to the frontend & bastion instance
   associate_public_ip_address = contains([var.bastion_name, var.frontend_name],each.key)
-  vpc_security_group_ids = [var.sg_map[each.key]]
+  vpc_security_group_ids = [
+    each.key == var.bastion_name  ? var.sg_map[var.bastion_name]  :
+    each.key == var.frontend_name ? var.sg_map[var.frontend_name] :
+    each.key == var.backend_name  ? var.sg_map[var.backend_name]  :
+    var.sg_map[var.db_name]
+  ]
+
   
   
   tags = {

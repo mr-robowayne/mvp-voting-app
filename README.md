@@ -39,7 +39,7 @@ terraform/env/prod
 - security_groups – firewall rules
 - compute – EC2 instances
 - keypair – SSH access
-- s3-bucket – supporting resources
+- s3-bucket – supporting resources ( for prod | empty )
 
 ---
 

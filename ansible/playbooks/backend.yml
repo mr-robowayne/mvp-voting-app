@@ -1,0 +1,6 @@
+- hosts: backend
+  become: true
+  vars_files:
+    - ../group_vars/backend.yml
+  roles:
+    - backend

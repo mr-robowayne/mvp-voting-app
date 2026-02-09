@@ -1,9 +1,27 @@
-#terraform
+### Terraform ###
 **/.terraform/*
 **/terraform.tfstate
 **/terraform.tfstate.*
 **/*.tfplan
-**/*.tfplan.*
-**/*.auto.tfvars
-**/*.auto.tfvars.json
+**/.terraform.lock.hcl
 **/terraform.tfvars
+
+### SSH Keys (ALL) ###
+*.pem
+*.key
+*.pub
+
+### Ansible ###
+ansible/.ansible/
+ansible/*.retry
+ansible/*.log
+
+# Inventories
+ansible/inventories/*/hosts.ini
+
+# Vault / Secrets
+ansible/vault.yml
+ansible/vault_pass.txt
+
+### OS ###
+.DS_Store

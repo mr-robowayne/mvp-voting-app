@@ -1,10 +1,10 @@
 services:
   vote:
-    image: mrrobofliper/vote:latest
+    image: mrrobofliper/mvp-vote:latest
     ports:
       - "8080:80"
 
   result:
-    image: mrrobofliper/result:latest
+    image: mrrobofliper/mvp-result:latest
     ports:
       - "8081:80"
